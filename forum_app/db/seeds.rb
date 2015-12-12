@@ -65,10 +65,9 @@ like2 = Like.create({
 
 
 vote1 = Vote.create({
-    user: user1,
-    topic: topic1
-  }
-]
+  user: user1,
+  topic: topic1
+})
 
 
 
