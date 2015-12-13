@@ -1,0 +1,13 @@
+<%= form_for @user do |f| %>
+  <%= f.label :name %>:
+  <%= f.text_field :name %>
+  <br>
+  <%= f.label :username %>:
+  <%= f.text_field :username %>
+  <br>
+  <%= f.label :profile_pic %>:
+  <%= f.check_box :profile_pic %>
+  <br>
+  <%= f.submit %>
+  
+<% end %>

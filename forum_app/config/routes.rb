@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
 
+
   shallow do 
     resources :topics do 
       resources :comments, only: [:index, :show, :create]

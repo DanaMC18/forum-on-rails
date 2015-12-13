@@ -1,5 +1,5 @@
-class UserController < ApplicationController
-  enable :sessions
+class UsersController < ApplicationController
+  layout :layout
 
   def index
     if session[:user_id]
@@ -8,6 +8,7 @@ class UserController < ApplicationController
       redirect_to topics_path
   end
 
+
   def show
     @user = User.find(params[:id])
     if !session[:user_id]
@@ -15,9 +16,11 @@ class UserController < ApplicationController
     end
   end
 
+
   def new
     @user = User.new
   end
+  
 
   def create
     user = User.new(user_params)
@@ -33,9 +36,11 @@ class UserController < ApplicationController
     end
   end
 
+
   def edit
     @user = User.find(params[:id])
   end
+
 
   def update
     @user = User.find(params[:id])
@@ -53,6 +58,7 @@ class UserController < ApplicationController
     session[:user_id] = nil
     redirect_to topics_path
   end
+
 
   private
     def user_params

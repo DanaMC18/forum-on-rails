@@ -1,0 +1,152 @@
+<br>
+
+<div class="topic-container">
+
+  <h2> <%= @topic.title %> </h2>
+
+  <a href="/users/<%=@topic.user_id%>"> <%= @topic.user.username %> </a>
+
+  <p> <strong> Created: </strong> <%= @topic.pretty_time %> </p>
+
+  <div class="topic-content"> 
+    <%= Markdown.new(@topic.content).to_html%>
+  </div>
+
+
+  <!-- EDIT TOPIC BUTTON -->
+  <!-- only seen by user who created topic -->
+  <% if @topic.user_id == session[:user_id] %>
+    <br>
+    <a href="/topics/<%= @topic.id %>/edit"> Edit </a>
+  <% else %>
+    <a class="hidden" href="/topics/<%= @topic.id %>/edit"> Edit </a>
+  <% end %>
+
+
+
+  <!-- COMMENTS -->
+  <!-- Need if/else because .each does not work if there is only one comment -->
+  <div class="comments-container">
+
+    <h2>Comments:</h2>
+
+    <% if @comment %>
+
+      <div class="comment-container">
+
+        <a href="/users/<%=@comment.user_id%>"> <%= @comment.user.username %>: </a>
+        
+        <p><strong> At: </strong> <%= @comment.pretty_time %> </p>
+
+        <div class="comment-content">
+          <%= Markdown.new(@comment.content).to_html%>
+        </div>
+
+        
+        <!-- EDIT COMMENT -->
+        <!-- only seen by user who created comment-->
+        <% if @comment.user_id == session[:user_id] %>
+          <br>
+          <a href="/comments/<%= @comment.id %>/edit"> Edit </a>
+        <% else %>
+          <a class="hidden" href="/comments/<%= @comment.id %>/edit"> Edit </a>
+        <% end %>
+
+
+        <!-- LIKES -->
+        <!-- LIKE COMMENT BUTTON -->
+        <!-- Only logged in users can like-->
+        <div class="likes-div">
+
+          <p> <strong> Likes: </strong> <%= @comment.like_count %> </p>
+
+           <% if @user %>
+              <form method="post" action="/comments/<%= @comment.id %>/likes">
+              <button>Like</button>
+              </form>
+            <% end %>
+
+          </div> <!--likes-div -->
+
+      </div> <!--comment container -->
+
+
+    <% else %>
+
+
+      <% @comments.each do |comment| %>
+
+        <div class="comment-container">
+
+          <a href="/users/<%=comment.user_id%>"> <%= comment.user.username %>: </a>
+          
+          <p><strong> At: </strong> <%= comment.pretty_time %> </p>
+
+          <div class="comment-content">
+            <%= Markdown.new(comment.content).to_html%>
+          </div>
+          
+
+          <!-- EDIT COMMENT -->
+          <!-- only seen by user who created comment-->
+          <% if comment.user_id == session[:user_id] %>
+            <br>
+            <a href="/comments/<%= comment.id %>/edit"> Edit </a>
+          <% else %>
+            <a class="hidden" href="/comments/<%= comment.id %>/edit"> Edit </a>
+          <% end %>
+
+
+          <!-- LIKES -->
+          <!-- LIKE COMMENT BUTTON -->
+          <!-- Only logged in users can like-->
+          <div class="likes-div">
+
+            <p> <strong> Likes: </strong> <%= comment.like_count %> </p>
+
+            <% if @user %>
+              <form method="post" action="/comments/<%= comment.id %>/likes">
+                <button>Like</button>
+              </form>
+            <% end %>
+
+          </div> <!-- likes div -->
+
+        </div> <!-- comment container -->
+
+      <% end %> <!-- .each -->
+
+    <% end %> <!-- if/else -->
+
+    
+
+    <!-- ADD COMMENT -->
+    <!-- Seen only by someone logged in -->
+    <div class="add-comment">
+
+      <% if @user %>
+
+        <h3> Add Comment: </h3>
+
+        <%= form_for @comment do |f| %>
+        <%= f.label :content %>:
+        <%= f.text_area_tag :content, size: "100x20" %>
+        <br>
+        <%= f.submit %>
+        <% end %>
+
+      <% else %>
+
+        <div class="comment-login">
+          <h3> Want to join the conversation? <a id="comment-login" href="#"> Log In! </a> </h3>
+        </div>
+
+      <% end %>
+
+    </div> <!-- add comment -->
+
+  </div> <!--comments-container-->
+
+</div><!--topic-container-->
+
+

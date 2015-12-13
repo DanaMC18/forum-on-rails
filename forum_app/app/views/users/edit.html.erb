@@ -12,25 +12,7 @@
 
     <h3> Edit your profile: </h3>
 
-    <form method="post" action="/users/<%= @user.id %>" >
-      <input type="hidden" name="_method" value="patch">
-
-      <label for="name"> Name: </label>
-      <input type="text" name="name" value="<%= @user.name %>">
-
-      <br>
-
-      <label for="username"> Username: </label>
-      <input type="text" name="username" value="<%= @user.username %>">
-
-      <br>
-
-      <label for="profile_pic"> Profile Picture URL: </label>
-      <textarea name="profile_pic" cols="100" rows="1"> <%= @user.profile_pic %> </textarea>
-
-      <br>
-      <button> Save </button>
-    </form>
+    <%= render "form" %>
 
 
     <!-- DELETE PROFILE FORM -->

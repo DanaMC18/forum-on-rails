@@ -1,0 +1,31 @@
+<br>
+<a class= "back-btn" href="/topics/<%= @topic.id %>"> Back </a>
+
+<!-- TOPIC in its current form -->
+<div class="topic-container">
+
+  <h2><%= @topic.title %></h2>
+
+  <div class="topic-content">
+      <%= Markdown.new(@topic.content).to_html%>
+  </div> 
+
+  <div class="edit-form">
+
+    <h3> Edit below </h3>
+
+    <!-- EDIT FORM -->
+    <%= render "form" %>
+
+    <br>
+
+
+    <!-- DELETE BUTTON -->
+    <form method="post" action="/topics/<%= @topic.id %>">
+      <input type="hidden" name="_method" value="delete">
+      <button>Delete</button>
+    </form>
+
+  </div> <!-- edit form -->
+
+</div> <!--topic-container-->
