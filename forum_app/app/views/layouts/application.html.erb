@@ -8,7 +8,58 @@
 </head>
 <body>
 
-<%= yield %>
+<header>
+
+    <h1 id="h1-1"> Fantastic Peeps </h1> 
+    <h1 id="h1-2"> And Where to Find Them </h1>
+
+    <div id="menu-bar">
+
+      <a href="/"> Home </a>
+
+      <% if session[:current_user_id] %>
+
+        <a href="/users"> Fantastic Peeps </a>
+
+        <form method="post" action="/sessions/destroy">
+          <input type="hidden" name="_method" value="delete">
+          <input id="logout-btn" type="submit" value="Logout">
+        </form>
+
+      <% else %>
+
+        <div id="login-menu">
+          <a id="main-login-btn" href="/sessions/new">Login!</a>
+          <a id="main-reg-btn" href="/users/new">Sign Up!</a>
+        </div>
+
+      <% end %>
+
+    </div> <!-- menu bar -->
+
+    <!-- LOGIN/REGISTRATION ERRORS -->
+    <% if @password_message %>
+      <h3> <%= @password_message %> </h3>
+    <% elsif @username_message %>
+      <h3> <%= @username_message %> </h3>
+    <% elsif @incorrect_info %>
+      <h3> <%= @incorrect_info %> </h3>
+    <% end %>
+
+  </header>
+
+  <%= yield %>
+
+  <footer>
+    <ul>
+      <li> <a href="https://github.com/DanaMC18/forum-project2">Github</a> </li>
+      <li> <a href="https://www.linkedin.com/in/danaczinsky">LinkedIn</a>
+      <li> DanaCzinsky@gmail.com </li>
+    </ul>
+  </footer>
 
 </body>
+
 </html>
+
+

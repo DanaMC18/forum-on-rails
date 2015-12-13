@@ -13,10 +13,10 @@
 
   <div class="topic-div">
 
-    <h2> <a href="topics/<%=topic.id%>"> <%= topic.title %> </a> </h2>
+    <h2> <a href="/topics/<%=topic.id%>"> <%= topic.title %> </a> </h2>
 
     <p> 
-      <strong> By: </strong> <a href="users/<%= topic.user_id%>"> <%= topic.user.username %> </a>
+      <strong> By: </strong> <a href="/users/<%= topic.user_id%>"> <%= topic.user.username %> </a>
       <strong> Created: </strong> <%= topic.pretty_time%> 
     </p>
 

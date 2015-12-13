@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  layout :layout
 
   def index
     if session[:user_id]
       @users = User.all 
     else
       redirect_to topics_path
+    end
   end
 
 

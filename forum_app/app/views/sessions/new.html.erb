@@ -1,0 +1,17 @@
+<!-- LOG IN FORM MODAL -->
+<!-- <div id="login" class="modal-container">
+  <div class="modal-content"> -->
+
+   <!--  <a id="login-close-btn" class="close-btn" href=""> Close </a> -->
+
+    <%= form_for @user do |f| %>
+      <%=f.label :username %>:
+      <%=f.text_field :username %>
+      <br>
+      <%=f.label :password %>
+      <%=f.password_field :password %>
+      <br>
+      <%=f.submit "Log in!" %>
+    <% end %>
+<!--   </div>
+</div> -->

@@ -15,7 +15,7 @@
 
   <!-- EDIT TOPIC BUTTON -->
   <!-- only seen by user who created topic -->
-  <% if @topic.user_id == session[:user_id] %>
+  <% if @topic.user_id == session[:current_user_id] %>
     <br>
     <a href="/topics/<%= @topic.id %>/edit"> Edit </a>
   <% else %>
@@ -45,7 +45,7 @@
         
         <!-- EDIT COMMENT -->
         <!-- only seen by user who created comment-->
-        <% if @comment.user_id == session[:user_id] %>
+        <% if @comment.user_id == session[:current_user_id] %>
           <br>
           <a href="/comments/<%= @comment.id %>/edit"> Edit </a>
         <% else %>
@@ -89,7 +89,7 @@
 
           <!-- EDIT COMMENT -->
           <!-- only seen by user who created comment-->
-          <% if comment.user_id == session[:user_id] %>
+          <% if comment.user_id == session[:current_user_id] %>
             <br>
             <a href="/comments/<%= comment.id %>/edit"> Edit </a>
           <% else %>
