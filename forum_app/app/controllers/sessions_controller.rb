@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
 
   # post 'login'
   def create
-    @user = User.find_by(username: params[:username]).try(:authenticate, params[:password] )
+    @current_user = User.find_by(username: params[:username]).try(:authenticate, params[:password] )
     @topics = Topic.all
-    if @user
+    if @current_user
       redirect_to topics
     else
       @incorrect_info = "Your username or password does not match our records, please try again."
