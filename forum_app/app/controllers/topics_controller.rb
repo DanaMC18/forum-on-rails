@@ -3,7 +3,7 @@ require "redcarpet"
 class TopicsController < ApplicationController
   
   def index
-    @user = User.find(session[:current_user_id]) if session[:current_user_id]
+    @user = User.find_by(id: session[:user_id]) if session[:user_id]
     @topics = Topic.all
   end
 
@@ -11,7 +11,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     @comments = Comment.all.where(topic_id: params[:id])
-    @user = User.find(session[:current_user_id]) if session[:current_user_id]
+    @user = User.find(session[:user_id]) if session[:user_id]
     if @comments.length <= 1
       @comment = @comments.first
     end
@@ -19,7 +19,7 @@ class TopicsController < ApplicationController
 
 
   def new
-    if session[:current_user_id]
+    if session[:user_id]
       @topic = Topic.new
     else 
       redirect_to topics
@@ -30,7 +30,7 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     if @topic.save
-      redirect_to topic
+      redirect_to @topic
     else
       render :new
     end
@@ -39,7 +39,7 @@ class TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
-    if session[:current_user_id] != @topic.user_id
+    if session[:user_id] != @topic.user_id
       redirect_to topics
     end
   end

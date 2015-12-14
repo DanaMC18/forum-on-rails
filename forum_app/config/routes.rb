@@ -4,11 +4,15 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :sessions, only: [:new, :create, :destroy]
+  # resources :sessions, only: [:new, :create, :destroy]
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete '/login' => 'sessions#create'
+
 
   shallow do 
     resources :topics do 
-      resources :comments, only: [:index, :show, :create]
+      resources :comments, only: [:index, :show, :new, :create]
       resources :votes, only: [:create]
     end
   end

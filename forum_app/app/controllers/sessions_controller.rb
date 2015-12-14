@@ -2,15 +2,16 @@ class SessionsController < ApplicationController
 
   # get 'login'
   def new
-    @user = User.new
   end
 
   # post 'login'
   def create
-    @current_user = User.find_by(username: params[:username]).try(:authenticate, params[:password] )
+    # user = User.find_by(username: params[:session][:username])
+    user = User.find_by_username(params[:username])
     @topics = Topic.all
-    if @current_user
-      redirect_to topics
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to "/topics"
     else
       @incorrect_info = "Your username or password does not match our records, please try again."
       render :new
@@ -19,7 +20,7 @@ class SessionsController < ApplicationController
 
   # 'logout'
   def destroy
-    session[:current_user_id] = nil
+    @current_user[:user_id] = nil
     redirect_to topics
   end
 

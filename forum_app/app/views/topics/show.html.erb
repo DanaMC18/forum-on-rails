@@ -4,7 +4,9 @@
 
   <h2> <%= @topic.title %> </h2>
 
-  <a href="/users/<%=@topic.user_id%>"> <%= @topic.user.username %> </a>
+  <% @user = User.find_by(@topic.user_id) %>
+
+  <a href="/users/<%=@topic.user_id%>"> <%= @user.username %> </a>
 
   <p> <strong> Created: </strong> <%= @topic.pretty_time %> </p>
 
@@ -15,7 +17,7 @@
 
   <!-- EDIT TOPIC BUTTON -->
   <!-- only seen by user who created topic -->
-  <% if @topic.user_id == session[:current_user_id] %>
+  <% if @topic.user_id == session[:user_id] %>
     <br>
     <a href="/topics/<%= @topic.id %>/edit"> Edit </a>
   <% else %>
@@ -45,7 +47,7 @@
         
         <!-- EDIT COMMENT -->
         <!-- only seen by user who created comment-->
-        <% if @comment.user_id == session[:current_user_id] %>
+        <% if @comment.user_id == session[:user_id] %>
           <br>
           <a href="/comments/<%= @comment.id %>/edit"> Edit </a>
         <% else %>
@@ -89,7 +91,7 @@
 
           <!-- EDIT COMMENT -->
           <!-- only seen by user who created comment-->
-          <% if comment.user_id == session[:current_user_id] %>
+          <% if comment.user_id == session[:user_id] %>
             <br>
             <a href="/comments/<%= comment.id %>/edit"> Edit </a>
           <% else %>
@@ -128,9 +130,9 @@
 
         <h3> Add Comment: </h3>
 
-        <%= form_for @comment do |f| %>
+        <%= form_for Comment.new do |f| %>
         <%= f.label :content %>:
-        <%= f.text_area_tag :content, size: "100x20" %>
+        <%= f.text_area :content, size: "100x20" %>
         <br>
         <%= f.submit %>
         <% end %>

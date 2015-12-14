@@ -17,11 +17,11 @@
 
       <a href="/"> Home </a>
 
-      <% if session[:current_user_id] %>
+      <% if session[:user_id] %>
 
         <a href="/users"> Fantastic Peeps </a>
 
-        <form method="post" action="/sessions/destroy">
+        <form method="post" action="/login">
           <input type="hidden" name="_method" value="delete">
           <input id="logout-btn" type="submit" value="Logout">
         </form>
@@ -29,7 +29,7 @@
       <% else %>
 
         <div id="login-menu">
-          <a id="main-login-btn" href="/sessions/new">Login!</a>
+          <a id="main-login-btn" href="/login">Login!</a>
           <a id="main-reg-btn" href="/users/new">Sign Up!</a>
         </div>
 
