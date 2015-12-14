@@ -1,7 +1,13 @@
 class SessionsController < ApplicationController
+  protect_from_forgery with: :null_session
+  before_action :authenticate, only: [:destroy]
+
 
   # get 'login'
   def new
+    if session[:user_id] 
+      redirect_to "/topics"
+    end
   end
 
   # post 'login'
@@ -20,8 +26,10 @@ class SessionsController < ApplicationController
 
   # 'logout'
   def destroy
-    @current_user[:user_id] = nil
-    redirect_to topics
+    # @current_user[:user_id] = nil
+    # redirect_to topics
+    reset_session 
+    redirect_to new_session_path
   end
 
 end
